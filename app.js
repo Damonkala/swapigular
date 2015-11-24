@@ -3,13 +3,17 @@ myapp.controller("ResidentCtrl", function($scope, $http, $stateParams) {
 		$http.get("http://swapi.co/api/people/" + $stateParams.id + "/?format=json").then(resp => {
 				$scope.character = resp.data;
 				sessionStorage.setItem("resident " + $stateParams.id, resp.data.name);
+
+				if(sessionStorage.getItem("resident " + $stateParams.id)) {
+					$scope.name = sessionStorage.getItem("resident " + $stateParams.id);
+					console.log(name)
+				}
 		});
 })
 myapp.controller("PlanetCtrl", function($scope, $http) {
 		$scope.planets = [];
 		$http.get("http://swapi.co/api/planets/?format=json").then(resp => {
 				$scope.planets = resp.data.results.map(planet => {
-					sessionStorage.setItem("planet " + planet.id, planet.name);
 						planet.residents = planet.residents.map(resident => {
 								var resident = { url: resident };
 								resident.id = resident.url.match(/\d+/)[0];
