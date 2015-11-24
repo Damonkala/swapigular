@@ -1,5 +1,14 @@
 <a ui-sref="planets">Back to Planets</a><br>
 
+
+	<div ng-hide="!name">
 		 Name: {{name}} <br>
 		 Session Gender: {{gender}}<br>
-		 Session Birth Year: {{birth_year}}<br>
+		 Birth Year: {{birth_year}}
+	</div>
+
+	<div ng-hide="name">
+		 Name: {{character.name}}<br>
+		 Gender: {{character.gender}}<br>
+		 Birth Year: {{character.birth_year}}<br>
+	</div>

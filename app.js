@@ -1,17 +1,18 @@
 var myapp = angular.module('myapp', ["ui.router"])
 myapp.controller("ResidentCtrl", function($scope, $http, $stateParams) {
+				if(sessionStorage.getItem("resident " + $stateParams.id)) {
+					$scope.name = sessionStorage.getItem("resident " + $stateParams.id);
+					$scope.gender = sessionStorage.getItem("resident gender" + $stateParams.id);
+					$scope.birth_year = sessionStorage.getItem("resident birth_year" + $stateParams.id);
+					$scope.blip = true;
+					($scope.name)
+				}
 		$http.get("http://swapi.co/api/people/" + $stateParams.id + "/?format=json").then(resp => {
 				$scope.character = resp.data;
 				sessionStorage.setItem("resident " + $stateParams.id, resp.data.name);
 				sessionStorage.setItem("resident gender" + $stateParams.id, resp.data.gender);
 				sessionStorage.setItem("resident birth_year" + $stateParams.id, resp.data.birth_year);
-
-				if(sessionStorage.getItem("resident " + $stateParams.id)) {
-					$scope.name = sessionStorage.getItem("resident " + $stateParams.id);
-					$scope.gender = sessionStorage.getItem("resident gender" + $stateParams.id);
-					$scope.birth_year = sessionStorage.getItem("resident birth_year" + $stateParams.id);
-					console.log($scope.name)
-				}
+				$scope.blip = false
 		});
 })
 myapp.controller("PlanetCtrl", function($scope, $http) {
