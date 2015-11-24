@@ -3,62 +3,16 @@
 
 <head>
     <title>AngularJS: UI-Router Quick Start</title>
-    <!-- Bootstrap CSS -->
     <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.4/angular.js"></script>
+    <script src="//angular-ui.github.io/ui-router/release/angular-ui-router.js"></script>
 </head>
-
 <body class="container">
   <div class="row">
     <div class="span12">
       <div class="well" ui-view></div>
     </div>
   </div>
-
-  <!-- Angular -->
-  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.4/angular.js"></script>
-  <!-- UI-Router -->
-  <script src="//angular-ui.github.io/ui-router/release/angular-ui-router.js"></script>
-
-  <!-- App Script -->
-  <script>
-    var myapp = angular.module('myapp', ["ui.router"])
-    myapp.controller("ResidentCtrl", function($scope, $http, $stateParams) {
-        $http.get("http://swapi.co/api/people/" + $stateParams.id + "/?format=json").then(resp => {
-            $scope.character = resp.data;
-        });
-    })
-    myapp.controller("PlanetCtrl", function($scope, $http) {
-        $scope.planets = [];
-        $http.get("http://swapi.co/api/planets/?format=json").then(resp => {
-            $scope.planets = resp.data.results.map(planet => {
-                planet.residents = planet.residents.map(resident => {
-                    var resident = { url: resident };
-                    resident.id = resident.url.match(/\d+/)[0];
-                    return resident;
-                });
-                return planet;
-            });
-
-        }).catch(error => console.error(error.status));
-    });
-    myapp.config(function($stateProvider, $urlRouterProvider){
-
-      $urlRouterProvider.otherwise("/planets")
-
-      $stateProvider
-        .state('planets', {
-            url: "/planets",
-            templateUrl: "planets.html",
-            controller: "PlanetCtrl"
-        })
-        .state('resident', {
-            url: "/resident/:id",
-            templateUrl: "resident.html",
-            controller: "ResidentCtrl"
-        })
-    })
-  </script>
-
+<script src="app.js"></script>
 </body>
-
 </html>
