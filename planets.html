@@ -1,8 +1,8 @@
 <ul>
-  <li ng-repeat="planet in planets">{{planet.name}} -- {{planet.population}}
+  <li ng-repeat="planet in planets">{{planet.name}}<br> Population: {{planet.population}}
     <ul>
       <li ng-repeat="resident in planet.residents">
-        <a ui-sref="resident({id: resident.id})">Resident {{resident.id}} : {{resident}}</a>
+        <a ui-sref="resident({id: resident.id})">Resident {{resident.id}}: {{resident.name}}{{resident.url}}</a>
       </li>
     </ul>
   </li>
